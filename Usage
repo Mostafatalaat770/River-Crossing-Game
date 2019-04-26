@@ -12,3 +12,13 @@
         move.doMove(..)
    }
   }
+- Undo/redo will use the memento design pattern
+    everytime the user make a move, we will add the list of both riversides to the memento
+    History history = new History();
+    to save a move : history.createHistory(leftList, RightList)
+    to undo a move : history.undo() which will set the private instances to the previous lists, so will get them using
+                     getters.
+    to redo a move : history.redo() and works the same as undo but with the redo logic.
+
+
+  }

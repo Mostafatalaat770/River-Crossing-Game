@@ -1,14 +1,42 @@
 package Animals;
 
-public abstract class Animal {
-    private int weight;
-    private int rank;
+import Interfaces.ICrosser;
 
-    public int getWeight() {
+import java.awt.image.BufferedImage;
+
+public abstract class Animal implements ICrosser {
+    private double weight;
+    private int eatingRank;
+
+    public boolean canSail() {
+        return false;
+    }
+
+    public double getWeight() {
         return weight;
     }
 
-    public int getRank() {
-        return rank;
+    public int getEatingRank() {
+        return eatingRank;
+    }
+
+    @Override
+    public BufferedImage[] getImages() {
+        return new BufferedImage[0];
+    }
+
+    @Override
+    public ICrosser makeCopy() {
+        return null;
+    }
+
+    @Override
+    public String getLabelToBeShown() {
+        return null;
+    }
+
+    @Override
+    public void setLabelToBeShown(String label) {
+
     }
 }

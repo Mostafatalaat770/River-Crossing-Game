@@ -1,0 +1,14 @@
+- To use the boat singleton, just use
+  Boat boat = Boat.getInstance();
+- The doMove method will use the strategy design pattern
+  doMove(..){
+  Move move;
+   if(fromLeftToRightBank){
+        move = new Move(new MoveLeftToRight())
+        move.doMove(..)
+   }
+   else{
+        move = new Move(new MoveRightToLeft())
+        move.doMove(..)
+   }
+  }

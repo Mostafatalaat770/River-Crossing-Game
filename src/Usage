@@ -1,2 +1,0 @@
-- To use the boat singleton, just use
-  Boat boat = Boat.getInstance();

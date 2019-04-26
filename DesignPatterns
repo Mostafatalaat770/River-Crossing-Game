@@ -1,6 +1,6 @@
 Design patterns :
-1- Strategy : we can use it for moving objects from/to sides, objects have to implement it.
-2- Singleton : we can use it when creating single objects like the boat.
+1- Strategy : we can use it for moving objects from/to sides, objects have to implement it. [DONE]
+2- Singleton : we can use it when creating single objects like the boat. [DONE]
 3- Command : we can use it when a user press a button on gui or something like that.
 4- MVC :
 5- Observer : we can use it to notify objects/things when the object/thing they are following updates something
@@ -8,6 +8,7 @@ Design patterns :
               the boat moved so it will increase the score by 1.
 6- Factory : we can use it to put the if conditions like when we want to create a a farmer we will create it using
              the factory design pattern, we will have one class containing the possible options.
+             // when choosing levels //.
 7- Memento : we can use it for anything related to an object's history like its state before certain event happens
              (undo/redo).
-8- Iterator: idk where to use it, we can talk about it later ^^.
+8- Iterator: idk where to use it, we can talk about it later [DONE].

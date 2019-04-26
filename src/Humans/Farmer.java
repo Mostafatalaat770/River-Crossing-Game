@@ -6,4 +6,5 @@ public class Farmer extends Human {
     public int getWeight() {
         return weight;
     }
+
 }

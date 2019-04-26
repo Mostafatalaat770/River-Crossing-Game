@@ -8,6 +8,11 @@ public abstract class Animal implements ICrosser {
     private double weight;
     private int eatingRank;
 
+    public Animal(double weight, int eatingRank) {
+        this.weight = weight;
+        this.eatingRank = eatingRank;
+    }
+
     public boolean canSail() {
         return false;
     }

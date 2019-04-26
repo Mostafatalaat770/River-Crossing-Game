@@ -8,6 +8,11 @@ public abstract class Human implements ICrosser {
     private double weight;
     private int eatingRank;
 
+    public Human(double weight, int eatingRank) {
+        this.weight = weight;
+        this.eatingRank = eatingRank;
+    }
+
     public boolean canSail() {
         return true;
     }

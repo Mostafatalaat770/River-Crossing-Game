@@ -1,10 +1,8 @@
 package Humans;
 
 public class Farmer extends Human {
-    private int weight;
 
-    public int getWeight() {
-        return weight;
+    public Farmer(double weight, int eatingRank) {
+        super(weight, eatingRank);
     }
-
 }

@@ -16,16 +16,21 @@ public class MoveRightToLeft implements Strategy {
         Iterator iteratorRight = rightBankCrossers.iterator();
         Iterator iteratorBoat = boatRiders.iterator();
 
+        ICrosser crosserBoat = (ICrosser) iteratorBoat.next();
+
         while (iteratorRight.hasNext()) {
 
             ICrosser crosserRight = (ICrosser) iteratorRight.next();
-            ICrosser crosserBoat = (ICrosser) iteratorBoat.next();
 
             if (crosserRight.equals(crosserBoat)) {
                 leftBankCrossers.add(crosserBoat);
                 iteratorRight.remove();
                 iteratorBoat.remove();
-                iteratorBoat = boatRiders.iterator();
+                try {
+                    crosserBoat = (ICrosser) iteratorBoat.next();
+                } catch (Exception e) {
+                    break;
+                }
                 iteratorRight = rightBankCrossers.iterator();
             }
         }

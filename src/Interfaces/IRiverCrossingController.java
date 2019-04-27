@@ -48,24 +48,19 @@ public interface IRiverCrossingController {
     int getNumberOfSails();
 
     /**
-     * @param crossers           crossers on the boat
+     * @param crossers crossers on the boat
      * @param fromLeftToRightBank boolean to inform the controller
-     *                            with the direction of the current game
+     *  with the direction of the current game
      * @return boolean if it is a valid move or not
      */
-    boolean canMove(List<ICrosser> crossers, boolean
-            fromLeftToRightBank);
+    boolean canMove(List<ICrosser> crossers, boolean fromLeftToRightBank);
 
     /**
      * this method used to perform the move if it is valid
-     *
-     *
      * @param crossers crossers on the boat to be moved to the other riverbank
      * @param fromLeftToRightBank
      */
-    void doMove(List<ICrosser> crossers, boolean
-            fromLeftToRightBank);
-
+    void doMove(List<ICrosser> crossers, boolean fromLeftToRightBank);
     /**
      * @return boolean providing that the undo action can be done or not
      */

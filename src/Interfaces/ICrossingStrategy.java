@@ -7,15 +7,14 @@ import java.util.List;
  */
 public interface ICrossingStrategy {
     /**
-     * @param boatRiders        which the user had selected to be moved to the
-     *                          other bank
+     * @param boatRiders which the user had selected to be moved to the
+     * other bank
      * @param rightBankCrossers the crosses on the right bank
      * @param leftBankCrossers  the crosses on the left bank
      * @return whether this move is valid
      * or not according to the rules
      */
-    boolean isValid(List<ICrosser> rightBankCrossers,
-                    List<ICrosser> leftBankCrossers, List<ICrosser> boatRiders);
+    boolean isValid(List<ICrosser> rightBankCrossers, List<ICrosser> leftBankCrossers, List<ICrosser> boatRiders);
 
     /**
      * @return the crossers of the left bank initially

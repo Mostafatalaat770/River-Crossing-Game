@@ -29,7 +29,5 @@ public class MoveRightToLeft implements Strategy {
                 iteratorRight = rightBankCrossers.iterator();
             }
         }
-
-
     }
 }

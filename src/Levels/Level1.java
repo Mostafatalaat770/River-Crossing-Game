@@ -27,10 +27,12 @@ public class Level1 extends Level {
                 plantCount++;
         }
         if((carnivoreCount!=0&&herbivoreCount!=0)||(herbivoreCount!=0&&plantCount!=0)) {
+            return false;
+        }
+        else{
             carnivoreCount=0;
             herbivoreCount=0;
             plantCount=0;
-            return false;
         }
         for(int i=0;i<leftBankCrossers.size();i++){
             if(leftBankCrossers.get(i) instanceof Carnivore)

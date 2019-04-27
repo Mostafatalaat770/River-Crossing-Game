@@ -9,5 +9,5 @@ Design patterns :
 6- Factory : we can use it to put the if conditions like when we want to create a a farmer we will create it using
              the factory design pattern, we will have one class containing the possible options. [Choosing levels]
 7- Memento : we can use it for anything related to an object's history like its state before certain event happens
-             (undo/redo).
+             (undo/redo). [DONE]
 8- Iterator: used it to iterate on lists [DONE].

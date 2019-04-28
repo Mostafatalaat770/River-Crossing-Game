@@ -9,6 +9,11 @@ public abstract class Plant implements ICrosser {
     private double weight;
     private int eatingRank;
 
+    public Plant(double weight, int eatingRank) {
+        this.weight = weight;
+        this.eatingRank = eatingRank;
+    }
+
     public boolean canSail() {
         return false;
     }

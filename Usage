@@ -20,5 +20,6 @@
                      getters.
     to redo a move : history.redo() and works the same as undo but with the redo logic.
 
-
-  }
+- Creation of a level will work as follows:
+    LevelCreator levelCreator = new LevelCreator;
+    Level level = levelCreator.getLevel(x) // x = level's number

@@ -48,14 +48,10 @@ public class Level1 extends Level {
     @Override
     public List<ICrosser> getInitialCrossers() {
         List<ICrosser> list = new ArrayList<>();
-        Farmer farmer = new Farmer(100., 5);
-        Fox fox = new Fox(20, 2);
-        Rabbit rabbit = new Rabbit(20, 1);
-        Cabbage cabbage = new Cabbage(10, 0);
-        list.add(farmer);
-        list.add(fox);
-        list.add(cabbage);
-        list.add(rabbit);
+        list.add(new Farmer(100, 5));
+        list.add(new Fox(20, 2));
+        list.add(new Rabbit(20, 1));
+        list.add(new Cabbage(10, 0));
         return list;
     }
 

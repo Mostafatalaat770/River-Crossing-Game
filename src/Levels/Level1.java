@@ -59,10 +59,10 @@ public class Level1 extends Level {
     public String[] getInstructions() {
 
         String[] instructions = new String[5];
-        instructions[0] = "Welcome to the first level, you have 1 farmer, 1 rabbit, 1 fox and 1 cabbage. your goal is to move all the elements form the left bank to the right bank.";
-        instructions[1] = "1- Only the farmer can sail the boat and can only take 1 passenger with him.";
-        instructions[2] = "2- If a fox and a rabbit are on the same bank alone, the rabbit will be eaten.";
-        instructions[3] = "3- If a rabbit and a cabbage are on the same bank alone, the cabbage will be eaten.";
+        instructions[0] = "Welcome to the first level, you have 1 farmer, 1 rabbit, 1 fox and 1 cabbage.\n your goal is to move all the elements form the left bank to the right bank.\n";
+        instructions[1] = "1- Only the farmer can sail the boat and can only take 1 passenger with him.\n";
+        instructions[2] = "2- If a fox and a rabbit are on the same bank alone, the rabbit will be eaten.\n";
+        instructions[3] = "3- If a rabbit and a cabbage are on the same bank alone, the cabbage will be eaten.\n";
         instructions[4] = "Try to figure out how to make it all cross the river.";
         return instructions;
     }

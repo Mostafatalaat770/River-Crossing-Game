@@ -1,6 +1,6 @@
 package Interfaces;
 
-import java.awt.image.BufferedImage;
+import java.io.IOException;
 
 /**
  * @author Mostafa Talaat
@@ -29,7 +29,7 @@ public interface ICrosser {
      * each crosser must have at least two images, each one
      * is used on one bank of the river
      */
-    BufferedImage[] getImages();
+    void getImages() throws IOException;
 
     /**
      * @return exact copy of the crosser

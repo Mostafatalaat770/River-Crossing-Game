@@ -3,6 +3,7 @@ package Humans;
 import Interfaces.ICrosser;
 
 import java.awt.image.BufferedImage;
+import java.io.IOException;
 
 public abstract class Human implements ICrosser {
     private double weight;
@@ -25,8 +26,8 @@ public abstract class Human implements ICrosser {
         return eatingRank;
     }
 
-    public BufferedImage[] getImages() {
-        return new BufferedImage[0];
+    public void getImages() throws IOException {
+
     }
 
     public ICrosser makeCopy() {

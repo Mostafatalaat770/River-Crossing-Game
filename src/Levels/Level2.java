@@ -34,12 +34,12 @@ public class Level2 extends Level {
 
     @Override
     public String[] getInstructions() {
-        String[] instructions = new String[5];
-        instructions[0] = "Four farmers and their animal need to cross a river in a small boat. The weights of the farmers are 90 kg, 80 kg,60 kg and 40 kg respectively, and the weight of the animal is 20 kg.\n";
-        instructions[1] = "How can they all get to the other side with their animal?\n";
-        instructions[2] = "Rules:\n";
-        instructions[3] = "1- The boat cannot bear a load heavier than 100 kg.\n";
-        instructions[4] = "2- All farmers can raft, while the animal cannot.\n";
+        String[] instructions = new String[1];
+        instructions[0] = "Four farmers and their animal need to cross a river in a small boat. The weights of the farmers are 90 kg, 80 kg,60 kg and 40 kg respectively, and the weight of the animal is 20 kg.\n" +
+                "How can they all get to the other side with their animal?\n" +
+                "Rules:\n" +
+                "1- The boat cannot bear a load heavier than 100 kg.\n" +
+                "2- All farmers can raft, while the animal cannot.\n";
         return instructions;
     }
 }

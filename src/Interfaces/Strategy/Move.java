@@ -14,8 +14,8 @@ public class Move {
         this.strategy = strategy;
     }
 
-    public void doMove(List<ICrosser> rightBankCrossers,
-                       List<ICrosser> leftBankCrossers, List<ICrosser> boatRiders) {
-        strategy.doMove(rightBankCrossers, leftBankCrossers, boatRiders);
+    public void doMove(List<ICrosser> crossers,
+                       List<ICrosser> boatRiders) {
+        strategy.doMove(crossers, boatRiders);
     }
 }

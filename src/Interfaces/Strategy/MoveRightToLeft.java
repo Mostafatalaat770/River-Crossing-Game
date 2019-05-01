@@ -2,7 +2,6 @@ package Interfaces.Strategy;
 
 import Interfaces.ICrosser;
 
-import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -10,29 +9,10 @@ import java.util.List;
  */
 public class MoveRightToLeft implements Strategy {
 
-    public void doMove(List<ICrosser> rightBankCrossers,
-                       List<ICrosser> leftBankCrossers, List<ICrosser> boatRiders) {
+    public void doMove(
+            List<ICrosser> crossers, List<ICrosser> boatRiders) {
 
-        Iterator iteratorRight = rightBankCrossers.iterator();
-        Iterator iteratorBoat = boatRiders.iterator();
-
-        ICrosser crosserBoat = (ICrosser) iteratorBoat.next();
-
-        while (iteratorRight.hasNext()) {
-
-            ICrosser crosserRight = (ICrosser) iteratorRight.next();
-
-            if (crosserRight.equals(crosserBoat)) {
-                leftBankCrossers.add(crosserBoat);
-                iteratorRight.remove();
-                iteratorBoat.remove();
-                try {
-                    crosserBoat = (ICrosser) iteratorBoat.next();
-                } catch (Exception e) {
-                    break;
-                }
-                iteratorRight = rightBankCrossers.iterator();
-            }
-        }
+        crossers.addAll(boatRiders);
+        boatRiders.clear();
     }
 }

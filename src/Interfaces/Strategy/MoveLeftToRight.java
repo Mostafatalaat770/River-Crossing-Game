@@ -10,32 +10,15 @@ import java.util.List;
  */
 public class MoveLeftToRight implements Strategy {
 
-    public void doMove(List<ICrosser> rightBankCrossers,
-                       List<ICrosser> leftBankCrossers, List<ICrosser> boatRiders) {
+    public void doMove(List<ICrosser> crossers, List<ICrosser> boatRiders) {
 
-        Iterator iteratorLeft = leftBankCrossers.iterator();
-        Iterator iteratorBoat = boatRiders.iterator();
+        Iterator boatIter = boatRiders.iterator();
 
-        ICrosser crosserBoat = (ICrosser) iteratorBoat.next();
-
-        while (iteratorLeft.hasNext()) {
-
-            ICrosser crosserLeft = (ICrosser) iteratorLeft.next();
-
-            if (crosserLeft.equals(crosserBoat)) {
-                rightBankCrossers.add(crosserBoat);
-                iteratorLeft.remove();
-                iteratorBoat.remove();
-                iteratorBoat = boatRiders.iterator();
-                try {
-                    crosserBoat = (ICrosser) iteratorBoat.next();
-                } catch (Exception e) {
-                    break;
-                }
-                iteratorLeft = leftBankCrossers.iterator();
-            }
+        while (boatIter.hasNext()) {
+            ICrosser crosser = (ICrosser) boatIter.next();
+            crossers.add(crosser);
+            boatRiders.remove(crosser);
         }
-
-
     }
+
 }

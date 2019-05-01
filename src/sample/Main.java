@@ -5,8 +5,10 @@ import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.geometry.VPos;
 import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -14,8 +16,12 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
@@ -66,24 +72,26 @@ public class Main extends Application {
         instructionsPane.add(next,0,5);
         instructionsPane.setAlignment(Pos.CENTER);
 
+        //for the background========================================================================
+        GraphicsContext gc = canvas.getGraphicsContext2D();
+        Image background = new Image( "Resources/river_crossing_background.png" );
+        ImageView backgroundImageView=new ImageView(background);
+        Image test =new Image("sample/CAC.jpg",50,50,true,true);
+        ImageView testView=new ImageView(test);
+        //==========================================================================================
 
 
-        Group root = new Group();
+        GridPane root = new GridPane();
         Scene theScene = new Scene( root ,1080,720);
         Scene instructionScene= new Scene(instructionsPane,1080,720);
         theStage.setScene( theScene );
 
-        root.getChildren().add( canvas );
-        root.getChildren().add(StartPane);
 
+        root.add(backgroundImageView,0,0);
+        root.add(canvas,0,0);
+        root.add(StartPane,0,0);
+        root.add(testView,0,1);
 
-
-
-        //for the background========================================================================
-        GraphicsContext gc = canvas.getGraphicsContext2D();
-        Image background = new Image( "Resources/river_crossing_background.png" );
-        gc.drawImage( background, 0, 0 );
-        //==========================================================================================
 
         //for the title of the word=================================================================
         gc.setFill( Color.RED );
@@ -106,6 +114,25 @@ public class Main extends Application {
                 instrctions3.setText(instructions[2]);
                 instrctions4.setText(instructions[3]);
                 instrctions5.setText(instructions[4]);
+
+
+            }
+        });
+        level2Button.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+
+
+            }
+
+        });
+
+
+        testView.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                System.out.println("fuck yea");
+                theStage.setScene( theScene );
 
             }
         });

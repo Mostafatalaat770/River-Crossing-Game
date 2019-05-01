@@ -36,12 +36,16 @@ public class FileManagement {
         return leftBank;
     }
 
-    public List<ICrosser> getRighttBank() {
+    public List<ICrosser> getRightBank() {
         return rightBank;
     }
 
     public List<ICrosser> getBoat() {
         return boat;
+    }
+
+    public int getScore() {
+        return score;
     }
 
     public void load() {

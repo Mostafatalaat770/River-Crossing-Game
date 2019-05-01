@@ -26,8 +26,8 @@ public abstract class Plant implements ICrosser {
         return eatingRank;
     }
 
-    public BufferedImage[] getImages() {
-        return new BufferedImage[0];
+    public void getImages() {
+
     }
 
     public ICrosser makeCopy() {

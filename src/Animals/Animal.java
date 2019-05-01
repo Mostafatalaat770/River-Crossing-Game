@@ -26,8 +26,7 @@ public abstract class Animal implements ICrosser {
     }
 
     @Override
-    public BufferedImage[] getImages() {
-        return new BufferedImage[0];
+    public void getImages() {
     }
 
     @Override

@@ -4,29 +4,20 @@ import Levels.Level1;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.fxml.FXMLLoader;
-import javafx.geometry.HPos;
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.geometry.VPos;
-import javafx.scene.Group;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.*;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-
-import javax.imageio.IIOException;
-import java.io.IOException;
 
 public class Main extends Application {
 
@@ -112,7 +103,7 @@ public class Main extends Application {
         level1Pane.getChildren().add(rightButtons);
         rightButtons.setAlignment(Pos.CENTER_RIGHT);
         level1Pane.getChildren().add(moveBoat);
-        level1Pane.setAlignment(moveBoat,Pos.BOTTOM_CENTER);
+        StackPane.setAlignment(moveBoat, Pos.BOTTOM_CENTER);
         levelGC.drawImage(background,0,0);
 
         //==========================================================================================
@@ -145,14 +136,12 @@ public class Main extends Application {
             @Override
             public void handle(ActionEvent actionEvent) {
                 theStage.setScene(instructionScene);
-                String[] instructions;
-                instructions=level1.getInstructions();
-                instrctions1.setText(instructions[0]);
-                instrctions2.setText(instructions[1]);
-                instrctions3.setText(instructions[2]);
-                instrctions4.setText(instructions[3]);
-                instrctions5.setText(instructions[4]);
-
+            }
+        });
+        level2Button.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                theStage.setScene(instructionScene);
             }
         });
         next.setOnAction(new EventHandler<ActionEvent>() {

@@ -23,5 +23,13 @@ public class CareTakerScore {
         stackScore1.push(stackScore2.pop());
         return stackScore1.lastElement();
     }
+
+    public boolean canRedo() {
+        return stackScore2.size() != 0;
+    }
+
+    public boolean canUndo() {
+        return stackScore1.size() != 0;
+    }
 }
 

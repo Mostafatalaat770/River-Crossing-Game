@@ -51,6 +51,14 @@ public class History {
         score = originatorScore.getState();
     }
 
+    public boolean canRedo() {
+        return careTakerScore.canRedo();
+    }
+
+    public boolean canUndo() {
+        return careTakerScore.canUndo();
+    }
+
     public List<ICrosser> getLeftCrossers() {
         return leftCrossers;
     }

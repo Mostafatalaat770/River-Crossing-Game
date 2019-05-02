@@ -11,66 +11,31 @@ import Interfaces.Strategy.Move;
 import Interfaces.Strategy.MoveLeftToRight;
 import Interfaces.Strategy.MoveRightToLeft;
 import Levels.Level;
-import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.text.Text;
-import javafx.stage.Stage;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Controller implements IRiverCrossingController {
-    LevelCreator levelCreator = new LevelCreator();
-    Level level;
+    public LevelCreator levelCreator = new LevelCreator();
+    public Level level;
 
-    Boat boat = Boat.getInstance();
-    List<ICrosser> leftBankCrossers = new ArrayList<>();
-    List<ICrosser> rightBankCrossers = new ArrayList<>();
-    List<ICrosser> boatRaiders = boat.getRaiders();
-    boolean boatOnTheLeftBank;
-    int score = 0;
-
-    History history = new History();
-
-    FileManagement fileManagement = new FileManagement();
-
-    @FXML
-    private Text instructionsText = new Text();
-
-    public void handleLevel1ButtonClick(ActionEvent event) throws IOException {
-        level = levelCreator.getLevel(1);
-        instructionsText.setText(getInstructions()[0]);
-        Parent LoginScreen = FXMLLoader.load(getClass().getResource("InstructionsPage.fxml"));
-        Scene LoginScene = new Scene(LoginScreen);
-        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        window.setScene(LoginScene);
-        window.show();
-    }
-
-    public void handleLevel2ButtonClick(ActionEvent event) throws IOException {
-        level = levelCreator.getLevel(2);
-        instructionsText.setText(getInstructions()[0]);
-        Parent LoginScreen = FXMLLoader.load(getClass().getResource("InstructionsPage.fxml"));
-        Scene LoginScene = new Scene(LoginScreen);
-        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        window.setScene(LoginScene);
-        window.show();
-    }
+    public Boat boat = Boat.getInstance();
+    public List<ICrosser> leftBankCrossers = new ArrayList<>();
+    public List<ICrosser> rightBankCrossers = new ArrayList<>();
+    public List<ICrosser> boatRaiders = boat.getRaiders();
+    public boolean boatOnTheLeftBank;
+    public int score = 0;
+    public int index;
 
 
-    public void handleShowInstructionsButtonClick(ActionEvent event) {
-        instructionsText.setText(getInstructions()[0]);
-    }
+    public History history = new History();
+
+    public FileManagement fileManagement = new FileManagement();
 
     @Override
     public void newGame(ICrossingStrategy gameStrategy) {
         leftBankCrossers = level.getInitialCrossers();
-        rightBankCrossers = boatRaiders = null;
+        rightBankCrossers = boatRaiders = new ArrayList<>();
         boatOnTheLeftBank = true;
     }
 
@@ -189,4 +154,23 @@ public class Controller implements IRiverCrossingController {
     public List<List<ICrosser>> solveGame() {
         return null;
     }
+
+    public int detectHitBox(List<ICrosser> initialCrossers, double x, double y) {
+        int i;
+        for (i = 0; i < initialCrossers.size(); i++) {
+            if ((x >= 100 && x <= 175) && (y >= 100 + (i * 500 / initialCrossers.size()) && y <= 150 + (i * 500 / initialCrossers.size()))) {
+                return i;
+            }
+        }
+
+        for (i = 0; i < initialCrossers.size(); i++) {
+            if ((x >= 900 && x <= 975) && (y >= 100 + (i * 500 / initialCrossers.size()) && y <= 150 + (i * 500 / initialCrossers.size()))) {
+                return i + initialCrossers.size();
+            }
+        }
+        return -1;
+
+    }
 }
+
+

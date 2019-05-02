@@ -1,8 +1,7 @@
 package Plants;
 
 import Interfaces.ICrosser;
-
-import java.awt.image.BufferedImage;
+import javafx.scene.image.Image;
 
 public abstract class Plant implements ICrosser {
 
@@ -41,4 +40,6 @@ public abstract class Plant implements ICrosser {
     public void setLabelToBeShown(String label) {
 
     }
+
+    public abstract Image getImage();
 }

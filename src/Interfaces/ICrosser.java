@@ -1,5 +1,7 @@
 package Interfaces;
 
+import javafx.scene.image.Image;
+
 import java.io.IOException;
 
 /**
@@ -49,4 +51,6 @@ public interface ICrosser {
      */
     void setLabelToBeShown(String label);
 
+    Image getImage();
 }
+

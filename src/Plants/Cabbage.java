@@ -7,7 +7,7 @@ public class Cabbage extends Plant {
         super(weight, eatingRank);
     }
     public Image getImage(){
-        Image image=new Image("Resources/cabbage.jpg",100,100,true,true);
+        Image image = new Image("Resources/kabotshy.png", 50, 50, true, true);
         return  image;
     }
 }

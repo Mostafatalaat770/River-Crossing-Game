@@ -1,10 +1,13 @@
 package Animals.Carnivores;
 
 import Animals.Animal;
+import javafx.scene.image.Image;
 
-public class Carnivore extends Animal {
+public abstract class Carnivore extends Animal {
 
     public Carnivore(double weight, int eatingRank) {
         super(weight, eatingRank);
     }
+
+    public abstract Image getImage();
 }

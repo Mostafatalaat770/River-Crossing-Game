@@ -1,6 +1,7 @@
 package Boat;
 
 import Interfaces.ICrosser;
+import javafx.scene.image.Image;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,6 +10,10 @@ import java.util.List;
  * @author Mostafa Talaat
  */
 public class Boat {
+    public Image getImage() {
+        Image image = new Image("Resources/wood plank.png", 250, 250, true, true);
+        return image;
+    }
 
     List<ICrosser> raiders = new ArrayList<>();
     private int capacity;

@@ -7,7 +7,7 @@ public class Fox extends Carnivore {
         super(weight, eatingRank);
     }
     public Image getImage(){
-        Image image=new Image("Resources/foxyjpg.jpg",100,100,true,true);
+        Image image = new Image("Resources/foxy musty.png", 100, 100, true, true);
         return  image;
     }
 }

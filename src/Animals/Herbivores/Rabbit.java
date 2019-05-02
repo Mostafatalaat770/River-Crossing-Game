@@ -7,7 +7,7 @@ public class Rabbit extends Herbivore {
         super(weight, eatingRank);
     }
     public Image getImage(){
-        Image image=new Image("Resources/rabbit.jpg",100,100,true,true);
+        Image image = new Image("Resources/Raboota.png", 75, 75, true, true);
         return  image;
     }
 }

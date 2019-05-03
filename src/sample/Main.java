@@ -128,6 +128,7 @@ public class Main extends Application {
             @Override
             public void handle(ActionEvent actionEvent) {
                 controller.level = controller.levelCreator.getLevel(1);
+                //controller.levelID = 1;
                 instructions.setText(controller.getInstructions()[0]);
                 theStage.setScene(instructionScene);
             }
@@ -136,6 +137,7 @@ public class Main extends Application {
             @Override
             public void handle(ActionEvent actionEvent) {
                 controller.level = controller.levelCreator.getLevel(2);
+                //controller.levelID = 2;
                 instructions.setText(controller.getInstructions()[0]);
                 theStage.setScene(instructionScene);
             }
@@ -156,6 +158,9 @@ public class Main extends Application {
             public void handle(ActionEvent event) {
                 controller.loadGame();
                 //TODO : show levelScene immediately
+                theStage.setScene(levelScene);
+                controller.refreshAndDraw(controller.rightBankCrossers, controller.leftBankCrossers, levelGC, controller, background, controller.boatOnTheLeftBank, controller.boat.getImage(), controller.boatRaiders);
+
             }
         });
         //dih el buttons kolaha ya sa7by=========================================================================================
@@ -215,6 +220,8 @@ public class Main extends Application {
                 if (controller.canUndo()) {
                     controller.undo();
                     controller.refreshAndDraw(controller.rightBankCrossers, controller.leftBankCrossers, levelGC, controller, background, controller.boatOnTheLeftBank, controller.boat.getImage(), controller.boatRaiders);
+                } else {
+                    //TODO: disable the button
                 }
             }
         });
@@ -224,6 +231,8 @@ public class Main extends Application {
                 if (controller.canRedo()) {
                     controller.redo();
                     controller.refreshAndDraw(controller.rightBankCrossers, controller.leftBankCrossers, levelGC, controller, background, controller.boatOnTheLeftBank, controller.boat.getImage(), controller.boatRaiders);
+                } else {
+                    //TODO: disable the button
                 }
             }
         });

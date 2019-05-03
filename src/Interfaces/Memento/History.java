@@ -32,6 +32,7 @@ public class History {
     }
 
     public void undo() {
+
         originatorLeft.getStateFromMemento(careTakerLeft.undo());
         originatorRight.getStateFromMemento(careTakerRight.undo());
         originatorScore.getStateFromMemento(careTakerScore.undo());
@@ -51,6 +52,15 @@ public class History {
         score = originatorScore.getState();
     }
 
+    public void clear() {
+        originatorLeft = new OriginatorLeft();
+        careTakerLeft = new CareTakerLeft();
+
+        originatorRight = new OriginatorRight();
+        careTakerRight = new CareTakerRight();
+        originatorScore = new OriginatorScore();
+        careTakerScore = new CareTakerScore();
+    }
     public boolean canRedo() {
         return careTakerScore.canRedo();
     }

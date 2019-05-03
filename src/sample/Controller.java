@@ -10,6 +10,8 @@ import Interfaces.Memento.History;
 import Interfaces.Strategy.Move;
 import Interfaces.Strategy.MoveRightToLeft;
 import Levels.Level;
+import Levels.Level1;
+import Levels.Level2;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
@@ -21,6 +23,7 @@ import java.util.List;
 public class Controller implements IRiverCrossingController {
     public LevelCreator levelCreator = new LevelCreator();
     public Level level;
+    //public int levelID;
 
     public Boat boat = Boat.getInstance();
     public List<ICrosser> leftBankCrossers = new ArrayList<>();
@@ -41,14 +44,19 @@ public class Controller implements IRiverCrossingController {
         rightBankCrossers = new ArrayList<>();
         boatRaiders = new ArrayList<>();
         boatOnTheLeftBank = true;
+        history.createHistory(leftBankCrossers, rightBankCrossers, score);
+
     }
 
     @Override
     public void resetGame() {
+        history.clear();
         leftBankCrossers = level.getInitialCrossers();
         rightBankCrossers.clear();
         boatRaiders.clear();
         boatOnTheLeftBank = true;
+        history.createHistory(leftBankCrossers, rightBankCrossers, score);
+
     }
 
     @Override
@@ -90,7 +98,6 @@ public class Controller implements IRiverCrossingController {
     @Override
     public void doMove(List<ICrosser> crossers, boolean fromLeftToRightBank) {
 
-            history.createHistory(leftBankCrossers, rightBankCrossers, score);
             Move move;
             if (fromLeftToRightBank) {
                 move = new Move(new MoveRightToLeft());
@@ -101,8 +108,9 @@ public class Controller implements IRiverCrossingController {
                 move.doMove(leftBankCrossers, boatRaiders);
                 boatOnTheLeftBank = true;
             }
+        history.createHistory(leftBankCrossers, rightBankCrossers, score);
 
-            score++;
+        score++;
             //TODO : alert "wrong move"
 
     }
@@ -119,41 +127,44 @@ public class Controller implements IRiverCrossingController {
 
     @Override
     public void undo() {
-        if (canUndo()) {
             history.undo();
             leftBankCrossers = history.getLeftCrossers();
             rightBankCrossers = history.getRightCrossers();
             boatRaiders.clear();
             score = history.getScore();
-        } else {
-            //TODO: disable undo button
-        }
+        boatOnTheLeftBank = !boatOnTheLeftBank;
+
     }
 
     @Override
     public void redo() {
-        if (canRedo()) {
-            history.undo();
+        history.redo();
             leftBankCrossers = history.getLeftCrossers();
             rightBankCrossers = history.getRightCrossers();
-            boatRaiders = null;
+        boatRaiders.clear();
             score = history.getScore();
-        } else {
-            //TODO: disable undo button
-        }
+        boatOnTheLeftBank = !boatOnTheLeftBank;
     }
 
     @Override
     public void saveGame() {
-        fileManagement.save(rightBankCrossers, leftBankCrossers, boatRaiders, score);
+        int levelID = 0;
+        if (level instanceof Level1) {
+            levelID = 1;
+        } else if (level instanceof Level2) {
+            levelID = 2;
+        }
+        fileManagement.save(rightBankCrossers, leftBankCrossers, boatRaiders, boatOnTheLeftBank, score, levelID);
     }
 
     @Override
     public void loadGame() {
         fileManagement.load();
+        level = levelCreator.getLevel(fileManagement.getLevelID());
         leftBankCrossers = fileManagement.getLeftBank();
         rightBankCrossers = fileManagement.getRightBank();
         boatRaiders = fileManagement.getBoat();
+        boatOnTheLeftBank = fileManagement.getBoatPosition();
         score = fileManagement.getScore();
     }
 

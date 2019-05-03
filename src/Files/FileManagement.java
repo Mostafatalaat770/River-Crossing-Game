@@ -30,7 +30,9 @@ public class FileManagement {
     private List<ICrosser> leftBank = new ArrayList<>();
     private List<ICrosser> rightBank = new ArrayList<>();
     private List<ICrosser> boat = new ArrayList<>();
+    private boolean boatPosition;
     private int score;
+    private int levelID;
 
     public List<ICrosser> getLeftBank() {
         return leftBank;
@@ -44,8 +46,16 @@ public class FileManagement {
         return boat;
     }
 
+    public boolean getBoatPosition() {
+        return boatPosition;
+    }
+
     public int getScore() {
         return score;
+    }
+
+    public int getLevelID() {
+        return levelID;
     }
 
     public void load() {
@@ -54,6 +64,17 @@ public class FileManagement {
         try {
             Document document = saxBuilder.build(inputFile);
             Element classElement = document.getRootElement();
+
+            String flag = document.getRootElement().getName();
+
+            switch (flag) {
+                case "level1":
+                    levelID = 1;
+                    break;
+                case "level2":
+                    levelID = 2;
+                    break;
+            }
 
             Element parent = classElement.getChild("leftBank");
             List<Element> childs = parent.getChildren();
@@ -139,8 +160,11 @@ public class FileManagement {
                     case "carrot":
                         boat.add(new Carrot(Double.parseDouble(child.getChild("weight").getText()), Integer.parseInt(child.getChild("eatingRank").getText())));
                         break;
+                    case "position":
+                        boatPosition = Boolean.parseBoolean(child.getText());
                 }
             }
+
 
             score = Integer.parseInt(classElement.getChild("score").getText());
 
@@ -150,11 +174,11 @@ public class FileManagement {
     }
 
 
-    public void save(List<ICrosser> rightBank, List<ICrosser> leftBank, List<ICrosser> boat, int score) {
+    public void save(List<ICrosser> rightBank, List<ICrosser> leftBank, List<ICrosser> boat, boolean boatPosition, int score, int levelID) {
 
         try {
 
-            Element levelElement = new Element("level");
+            Element levelElement = new Element("level" + levelID);
             Document doc = new Document(levelElement);
 
             Element child = new Element("leftBank");
@@ -194,7 +218,7 @@ public class FileManagement {
             levelElement.addContent(child);
             parent = child;
             for (int i = 0; i < rightBank.size(); i++) {
-                ICrosser crosser = leftBank.get(i);
+                ICrosser crosser = rightBank.get(i);
                 Element info;
                 if (crosser instanceof Farmer) {
                     child = new Element("farmer");
@@ -228,7 +252,7 @@ public class FileManagement {
             parent = child;
 
             for (int i = 0; i < boat.size(); i++) {
-                ICrosser crosser = leftBank.get(i);
+                ICrosser crosser = boat.get(i);
                 Element info;
                 if (crosser instanceof Farmer) {
                     child = new Element("farmer");
@@ -256,6 +280,9 @@ public class FileManagement {
                 parent.addContent(child);
 
             }
+            child = new Element("position");
+            child.setText(Boolean.toString(boatPosition));
+            parent.addContent(child);
 
             child = new Element("score");
             child.setText(Integer.toString(score));

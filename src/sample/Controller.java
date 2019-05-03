@@ -12,6 +12,8 @@ import Interfaces.Strategy.MoveRightToLeft;
 import Levels.Level;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -204,6 +206,11 @@ public class Controller implements IRiverCrossingController {
                 y += 100;
             }
         }
+        gc.setFill(Color.GREEN);
+        gc.setLineWidth(2);
+        Font theFont = Font.font("Arial Rounded MT Bold", 30);
+        gc.setFont(theFont);
+        gc.fillText("Score: " + controller.score, 900, 50);
     }
 
     public void moveThisDude(List<ICrosser> crossers, List<ICrosser> boatRaiders, int index) {
@@ -213,10 +220,10 @@ public class Controller implements IRiverCrossingController {
         }
     }
 
-    public void returnThisDude(List<ICrosser> crossers, List<ICrosser> boatRaiders, int index) {
-        for (ICrosser crosser : boatRaiders) {
-            crossers.add(crosser);
-            boatRaiders.remove(crosser);
+    public void returnThisDude(List<ICrosser> crossers, List<ICrosser> boatRaiders) {
+        for (int i = 0; i < 2; i++) {
+            crossers.add(boatRaiders.get(i));
+            boatRaiders.remove(i);
         }
     }
 }

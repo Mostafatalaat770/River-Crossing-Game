@@ -8,7 +8,7 @@ public class Farmer extends Human {
         super(weight, eatingRank);
     }
 public Image getImage(){
-    Image image = new Image("Resources/Farmer.png", 150, 150, true, true);
+    Image image = new Image("Resources/farmerLeft.png", 150, 150, true, true);
         return  image;
 }
 

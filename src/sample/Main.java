@@ -112,13 +112,13 @@ public class Main extends Application {
         root.add(StartPane, 0, 0);
 
         //for the title of the word=================================================================
-        gc.setFill(Color.RED);
+        gc.setFill(Color.GREEN);
         gc.setStroke(Color.BLACK);
         gc.setLineWidth(2);
-        Font theFont = Font.font("Segoe UI", 48);
+        Font theFont = Font.font("Arial Rounded MT Bold", 48);
         gc.setFont(theFont);
-        gc.fillText("Welcome to River Crossing Game", 200, 50);
-        gc.strokeText("Welcome to River Crossing Game", 200, 50);
+        gc.fillText("Welcome to River Crossing Game", 170, 50);
+        gc.strokeText("Welcome to River Crossing Game", 170, 50);
         //==========================================================================================
 
 
@@ -203,9 +203,19 @@ public class Main extends Application {
                 //TODO: canMove , isVaild , doMove
                 if (controller.canMove(controller.boatRaiders, controller.boatOnTheLeftBank) && controller.level.isValid(controller.rightBankCrossers, controller.leftBankCrossers, controller.boatRaiders)) {
                     controller.doMove(controller.boatRaiders, controller.boatOnTheLeftBank);
-                    controller.refreshAndDraw(controller.rightBankCrossers, controller.leftBankCrossers, levelGC, controller, background, controller.boatOnTheLeftBank, controller.boat.getImage(), controller.boatRaiders);
                     System.out.println("Boat moved");
+                } else if (!controller.canMove(controller.boatRaiders, controller.boatOnTheLeftBank) || !controller.level.isValid(controller.rightBankCrossers, controller.leftBankCrossers, controller.boatRaiders)) {
+                    if (controller.boatOnTheLeftBank) {
+                        controller.returnThisDude(controller.leftBankCrossers, controller.boatRaiders);
+                    } else {
+                        controller.returnThisDude(controller.rightBankCrossers, controller.boatRaiders);
+
+                    }
+                    System.out.println("invalid move ya  ro7 omak");
+
                 }
+                controller.refreshAndDraw(controller.rightBankCrossers, controller.leftBankCrossers, levelGC, controller, background, controller.boatOnTheLeftBank, controller.boat.getImage(), controller.boatRaiders);
+
             }
 
         });

@@ -25,11 +25,11 @@ public class CareTakerScore {
     }
 
     public boolean canRedo() {
-        return stackScore2.size() != 0;
+        return stackScore2.size() != 1;
     }
 
     public boolean canUndo() {
-        return stackScore1.size() != 0;
+        return stackScore1.size() != 1;
     }
 }
 

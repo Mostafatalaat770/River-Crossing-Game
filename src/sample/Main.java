@@ -1,6 +1,5 @@
 package sample;
 
-import Interfaces.ICrosser;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -118,21 +117,15 @@ public class Main extends Application {
         next.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-
-                double x = 100;
-                double y = 100;
                 theStage.setScene(level1Scene);
                 controller.newGame(controller.level);
                 levelGC.drawImage(controller.boat.getImage(), 350, 300);
-                for (ICrosser crosser : controller.leftBankCrossers) {
-                    levelGC.drawImage(crosser.getImage(), x, y);
-                    y += 500 / controller.level.getInitialCrossers().size();
-                }
+                controller.refreshAndDraw(controller.rightBankCrossers, controller.leftBankCrossers, levelGC, controller, background, controller.boatOnTheLeftBank, controller.boat.getImage(), controller.boatRaiders);
 
             }
 
         });
-
+        //dih el buttons kolaha ya sa7by=========================================================================================
         level1Scene.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
@@ -141,18 +134,44 @@ public class Main extends Application {
 //                System.out.println(event.getSceneY());
                 controller.index = controller.detectHitBox(controller.level.getInitialCrossers(), event.getSceneX(), event.getSceneY());
                 if (controller.index != -1) {
-                    //go to right bank crossers
+                    //go to right bank crossers======================================================
                     if (controller.index >= controller.level.getInitialCrossers().size()) {
                         controller.index %= controller.level.getInitialCrossers().size();
                         System.out.println(controller.index);
+                        if (controller.index < controller.rightBankCrossers.size()) {
+                            if (controller.boatOnTheLeftBank == false) {
+                                controller.moveThisDude(controller.rightBankCrossers, controller.boatRaiders, controller.index);
+                                controller.refreshAndDraw(controller.rightBankCrossers, controller.leftBankCrossers, levelGC, controller, background, controller.boatOnTheLeftBank, controller.boat.getImage(), controller.boatRaiders);
+                            }
+                        }
                     }
-                    //go to left bank crossers
+                    //===============================================================================
+
+                    //go to left bank crossers=======================================================
                     else if (controller.index < controller.level.getInitialCrossers().size()) {
                         System.out.println(controller.index);
+                        if (controller.index < controller.leftBankCrossers.size()) {
+                            if (controller.boatOnTheLeftBank == true) {
+                                controller.moveThisDude(controller.leftBankCrossers, controller.boatRaiders, controller.index);
+                                controller.refreshAndDraw(controller.rightBankCrossers, controller.leftBankCrossers, levelGC, controller, background, controller.boatOnTheLeftBank, controller.boat.getImage(), controller.boatRaiders);
+                            }
+                        }
                     }
+                    //==============================================================================
                 }
             }
         });
+        //=========================================================================================================================
+
+        moveBoat.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+
+                //TODO: canMove , isVaild , doMove
+            }
+
+        });
+
         theStage.show();
     }
 

@@ -11,6 +11,8 @@ import Interfaces.Strategy.Move;
 import Interfaces.Strategy.MoveLeftToRight;
 import Interfaces.Strategy.MoveRightToLeft;
 import Levels.Level;
+import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.Image;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,8 +23,8 @@ public class Controller implements IRiverCrossingController {
 
     public Boat boat = Boat.getInstance();
     public List<ICrosser> leftBankCrossers = new ArrayList<>();
+    public List<ICrosser> boatRaiders = new ArrayList<>(); //boat.getRaiders();
     public List<ICrosser> rightBankCrossers = new ArrayList<>();
-    public List<ICrosser> boatRaiders = boat.getRaiders();
     public boolean boatOnTheLeftBank;
     public int score = 0;
     public int index;
@@ -158,18 +160,54 @@ public class Controller implements IRiverCrossingController {
     public int detectHitBox(List<ICrosser> initialCrossers, double x, double y) {
         int i;
         for (i = 0; i < initialCrossers.size(); i++) {
-            if ((x >= 100 && x <= 175) && (y >= 100 + (i * 500 / initialCrossers.size()) && y <= 150 + (i * 500 / initialCrossers.size()))) {
+            if ((x >= 100 && x <= 175) && (y >= 150 + (i * 500 / initialCrossers.size()) && y <= 200 + (i * 500 / initialCrossers.size()))) {
                 return i;
             }
         }
 
         for (i = 0; i < initialCrossers.size(); i++) {
-            if ((x >= 900 && x <= 975) && (y >= 100 + (i * 500 / initialCrossers.size()) && y <= 150 + (i * 500 / initialCrossers.size()))) {
+            if ((x >= 900 && x <= 975) && (y >= 150 + (i * 500 / initialCrossers.size()) && y <= 200 + (i * 500 / initialCrossers.size()))) {
                 return i + initialCrossers.size();
             }
         }
         return -1;
+    }
 
+    public void refreshAndDraw(List<ICrosser> rightBankCrossers, List<ICrosser> leftBankCrossers, GraphicsContext gc, Controller controller, Image image, boolean boatOnTheLeftBank, Image boatImage, List<ICrosser> boatRaiders) {
+        gc.clearRect(0, 0, gc.getCanvas().getWidth(), gc.getCanvas().getHeight());
+        gc.drawImage(image, 0, 0);
+        double y = 150;
+        for (ICrosser crosser : leftBankCrossers) {
+            gc.drawImage(crosser.getImage(), 100, y);
+            y += 500 / controller.level.getInitialCrossers().size();
+        }
+        y = 150;
+        for (ICrosser crosser : rightBankCrossers) {
+            gc.drawImage(crosser.getImage(), 900, y);
+            y += 500 / controller.level.getInitialCrossers().size();
+        }
+        if (boatOnTheLeftBank == true) {
+            y = 360;
+            gc.drawImage(boatImage, 350, 300);
+            for (ICrosser crosser : boatRaiders) {
+                gc.drawImage(crosser.getImage(), y, 330);
+                y += 100;
+            }
+        } else if (boatOnTheLeftBank == false) {
+            y = 560;
+            gc.drawImage(boatImage, 550, 300);
+            for (ICrosser crosser : boatRaiders) {
+                gc.drawImage(crosser.getImage(), y, 330);
+                y += 100;
+            }
+        }
+    }
+
+    public void moveThisDude(List crossers, List boatRaiders, int index) {
+        if (boatRaiders.size() < 2) {
+            boatRaiders.add(crossers.get(index));
+            crossers.remove(index);
+        }
     }
 }
 

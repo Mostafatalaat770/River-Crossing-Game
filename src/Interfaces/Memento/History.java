@@ -31,25 +31,32 @@ public class History {
         careTakerScore.add(originatorScore.saveStateToMemento());
     }
 
-    public void undo() {
-
-        originatorLeft.getStateFromMemento(careTakerLeft.undo());
-        originatorRight.getStateFromMemento(careTakerRight.undo());
-        originatorScore.getStateFromMemento(careTakerScore.undo());
-
+    public boolean undo() {
+        try {
+            originatorLeft.getStateFromMemento(careTakerLeft.undo());
+            originatorRight.getStateFromMemento(careTakerRight.undo());
+            originatorScore.getStateFromMemento(careTakerScore.undo());
+        } catch (Exception e) {
+            return false;
+        }
         leftCrossers = originatorLeft.getState();
         rightCrossers = originatorRight.getState();
         score = originatorScore.getState();
+        return true;
     }
 
-    public void redo() {
-        originatorLeft.getStateFromMemento(careTakerLeft.redo());
-        originatorRight.getStateFromMemento(careTakerRight.redo());
-        originatorScore.getStateFromMemento(careTakerScore.redo());
-
+    public boolean redo() {
+        try {
+            originatorLeft.getStateFromMemento(careTakerLeft.redo());
+            originatorRight.getStateFromMemento(careTakerRight.redo());
+            originatorScore.getStateFromMemento(careTakerScore.redo());
+        } catch (Exception e) {
+            return false;
+        }
         leftCrossers = originatorLeft.getState();
         rightCrossers = originatorRight.getState();
         score = originatorScore.getState();
+        return true;
     }
 
     public void clear() {

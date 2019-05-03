@@ -15,7 +15,6 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
@@ -30,17 +29,23 @@ public class Main extends Application {
 
         theStage.setTitle("RiverCrossingGame");
         //adding all the widgets
-        StackPane level1Pane = new StackPane();
+        StackPane levelPane = new StackPane();
         Canvas levelCanvas = new Canvas(1080, 720);
         GraphicsContext levelGC = levelCanvas.getGraphicsContext2D();
         Canvas canvas = new Canvas(1080, 720);
 
 
-        Button level1Button = new Button("level 1");
-        Button level2Button = new Button("level 2");
-        Button load = new Button("load");
-        Button next = new Button("next");
-        Button moveBoat = new Button("move boat");
+        Button level1Button = new Button("Level 1");
+        Button level2Button = new Button("Level 2");
+        Button load = new Button("Load last save");
+        Button next = new Button("Start game!");
+        Button move = new Button("Move");
+        Button undo = new Button("Undo");
+        Button redo = new Button("Redo");
+        Button save = new Button("Save Game");
+        Button instructionsInGame = new Button("Instructions");
+        Button reset = new Button("Reset Game");
+
 
 
         Text instructions = new Text();
@@ -60,16 +65,37 @@ public class Main extends Application {
         instructionsPane.setAlignment(Pos.CENTER);
 
 
+        GridPane levelButtonsPane = new GridPane();
+        levelButtonsPane.add(undo, 0, 0);
+        levelButtonsPane.add(redo, 1, 0);
+        levelButtonsPane.add(save, 2, 0);
+        levelButtonsPane.add(instructionsInGame, 3, 0);
+        levelButtonsPane.add(reset, 4, 0);
+        levelButtonsPane.setHgap(5);
+        levelButtonsPane.setAlignment(Pos.TOP_CENTER);
+
+        GridPane moveBoat = new GridPane();
+        moveBoat.add(move, 0, 0);
+        moveBoat.setAlignment(Pos.BOTTOM_CENTER);
+
+        GridPane levelMain = new GridPane();
+        levelMain.add(moveBoat, 0, 0);
+        moveBoat.setAlignment(Pos.BOTTOM_CENTER);
+        levelMain.add(levelButtonsPane, 0, 1);
+
+
+
         //for the background========================================================================
         GraphicsContext gc = canvas.getGraphicsContext2D();
         Image background = new Image("Resources/river_crossing_background.png");
         ImageView backgroundImageView = new ImageView(background);
         //==========================================================================================
 
-        //Creating level 1==========================================================================
-        level1Pane.getChildren().add(levelCanvas);
-        level1Pane.getChildren().add(moveBoat);
-        StackPane.setAlignment(moveBoat, Pos.BOTTOM_CENTER);
+        //Creating level ==========================================================================
+        levelPane.getChildren().add(levelCanvas);
+//        levelPane.getChildren().add(levelButtonsPane);
+//        levelPane.getChildren().add(moveBoat);
+        levelPane.getChildren().add(levelMain);
         levelGC.drawImage(background, 0, 0);
 
         //==========================================================================================
@@ -89,14 +115,14 @@ public class Main extends Application {
         gc.setFill(Color.RED);
         gc.setStroke(Color.BLACK);
         gc.setLineWidth(2);
-        Font theFont = Font.font("Times New Roman", FontWeight.BOLD, 48);
+        Font theFont = Font.font("Segoe UI", 48);
         gc.setFont(theFont);
         gc.fillText("Welcome to River Crossing Game", 200, 50);
         gc.strokeText("Welcome to River Crossing Game", 200, 50);
         //==========================================================================================
 
 
-        Scene level1Scene = new Scene(level1Pane);
+        Scene levelScene = new Scene(levelPane);
 
         level1Button.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -117,7 +143,7 @@ public class Main extends Application {
         next.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-                theStage.setScene(level1Scene);
+                theStage.setScene(levelScene);
                 controller.newGame(controller.level);
                 levelGC.drawImage(controller.boat.getImage(), 350, 300);
                 controller.refreshAndDraw(controller.rightBankCrossers, controller.leftBankCrossers, levelGC, controller, background, controller.boatOnTheLeftBank, controller.boat.getImage(), controller.boatRaiders);
@@ -125,8 +151,15 @@ public class Main extends Application {
             }
 
         });
+        load.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                controller.loadGame();
+                //TODO : show levelScene immediately
+            }
+        });
         //dih el buttons kolaha ya sa7by=========================================================================================
-        level1Scene.setOnMouseClicked(new EventHandler<MouseEvent>() {
+        levelScene.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
 
@@ -163,13 +196,55 @@ public class Main extends Application {
         });
         //=========================================================================================================================
 
-        moveBoat.setOnAction(new EventHandler<ActionEvent>() {
+        move.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
 
                 //TODO: canMove , isVaild , doMove
+                if (controller.canMove(controller.boatRaiders, controller.boatOnTheLeftBank) && controller.level.isValid(controller.rightBankCrossers, controller.leftBankCrossers, controller.boatRaiders)) {
+                    controller.doMove(controller.boatRaiders, controller.boatOnTheLeftBank);
+                    controller.refreshAndDraw(controller.rightBankCrossers, controller.leftBankCrossers, levelGC, controller, background, controller.boatOnTheLeftBank, controller.boat.getImage(), controller.boatRaiders);
+                    System.out.println("Boat moved");
+                }
             }
 
+        });
+        undo.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                if (controller.canUndo()) {
+                    controller.undo();
+                    controller.refreshAndDraw(controller.rightBankCrossers, controller.leftBankCrossers, levelGC, controller, background, controller.boatOnTheLeftBank, controller.boat.getImage(), controller.boatRaiders);
+                }
+            }
+        });
+        redo.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                if (controller.canRedo()) {
+                    controller.redo();
+                    controller.refreshAndDraw(controller.rightBankCrossers, controller.leftBankCrossers, levelGC, controller, background, controller.boatOnTheLeftBank, controller.boat.getImage(), controller.boatRaiders);
+                }
+            }
+        });
+        instructionsInGame.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                //TODO : pop a window showing instructions
+            }
+        });
+        save.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                controller.saveGame();
+            }
+        });
+        reset.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                controller.resetGame();
+                controller.refreshAndDraw(controller.rightBankCrossers, controller.leftBankCrossers, levelGC, controller, background, controller.boatOnTheLeftBank, controller.boat.getImage(), controller.boatRaiders);
+            }
         });
 
         theStage.show();

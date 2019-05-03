@@ -8,7 +8,6 @@ import Interfaces.ICrossingStrategy;
 import Interfaces.IRiverCrossingController;
 import Interfaces.Memento.History;
 import Interfaces.Strategy.Move;
-import Interfaces.Strategy.MoveLeftToRight;
 import Interfaces.Strategy.MoveRightToLeft;
 import Levels.Level;
 import javafx.scene.canvas.GraphicsContext;
@@ -37,14 +36,16 @@ public class Controller implements IRiverCrossingController {
     @Override
     public void newGame(ICrossingStrategy gameStrategy) {
         leftBankCrossers = level.getInitialCrossers();
-        rightBankCrossers = boatRaiders = new ArrayList<>();
+        rightBankCrossers = new ArrayList<>();
+        boatRaiders = new ArrayList<>();
         boatOnTheLeftBank = true;
     }
 
     @Override
     public void resetGame() {
         leftBankCrossers = level.getInitialCrossers();
-        rightBankCrossers = boatRaiders = null;
+        rightBankCrossers.clear();
+        boatRaiders.clear();
         boatOnTheLeftBank = true;
     }
 
@@ -75,31 +76,33 @@ public class Controller implements IRiverCrossingController {
 
     @Override
     public boolean canMove(List<ICrosser> crossers, boolean fromLeftToRightBank) {
-        for (ICrosser raider : boatRaiders) {
-            if (!raider.canSail()) {
-                return false;
+        for (ICrosser crosser : crossers) {
+            if (crosser.canSail()) {
+                return true;
             }
         }
-        return true;
+        return false;
 
     }
 
     @Override
     public void doMove(List<ICrosser> crossers, boolean fromLeftToRightBank) {
-        if (canMove(crossers, fromLeftToRightBank)) {
+
             history.createHistory(leftBankCrossers, rightBankCrossers, score);
             Move move;
             if (fromLeftToRightBank) {
-                move = new Move(new MoveLeftToRight());
-                move.doMove(crossers, boatRaiders);
+                move = new Move(new MoveRightToLeft());
+                move.doMove(rightBankCrossers, boatRaiders);
+                boatOnTheLeftBank = false;
             } else {
                 move = new Move(new MoveRightToLeft());
-                move.doMove(crossers, boatRaiders);
+                move.doMove(leftBankCrossers, boatRaiders);
+                boatOnTheLeftBank = true;
             }
+
             score++;
-        } else {
             //TODO : alert "wrong move"
-        }
+
     }
 
     @Override
@@ -118,7 +121,7 @@ public class Controller implements IRiverCrossingController {
             history.undo();
             leftBankCrossers = history.getLeftCrossers();
             rightBankCrossers = history.getRightCrossers();
-            boatRaiders = null;
+            boatRaiders.clear();
             score = history.getScore();
         } else {
             //TODO: disable undo button
@@ -203,10 +206,17 @@ public class Controller implements IRiverCrossingController {
         }
     }
 
-    public void moveThisDude(List crossers, List boatRaiders, int index) {
+    public void moveThisDude(List<ICrosser> crossers, List<ICrosser> boatRaiders, int index) {
         if (boatRaiders.size() < 2) {
             boatRaiders.add(crossers.get(index));
             crossers.remove(index);
+        }
+    }
+
+    public void returnThisDude(List<ICrosser> crossers, List<ICrosser> boatRaiders, int index) {
+        for (ICrosser crosser : boatRaiders) {
+            crossers.add(crosser);
+            boatRaiders.remove(crosser);
         }
     }
 }

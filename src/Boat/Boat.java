@@ -11,7 +11,7 @@ import java.util.List;
  */
 public class Boat {
     public Image getImage() {
-        Image image = new Image("Resources/wood plank.png", 250, 250, true, true);
+        Image image = new Image("Resources/wood plank.png", 200, 200, true, true);
         return image;
     }
 

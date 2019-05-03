@@ -187,17 +187,17 @@ public class Controller implements IRiverCrossingController {
             y += 500 / controller.level.getInitialCrossers().size();
         }
         if (boatOnTheLeftBank == true) {
-            y = 360;
-            gc.drawImage(boatImage, 350, 300);
+            y = 350;
+            gc.drawImage(boatImage, 350, 350);
             for (ICrosser crosser : boatRaiders) {
-                gc.drawImage(crosser.getImage(), y, 330);
+                gc.drawImage(crosser.getImage(), y, 380 - crosser.getImage().getHeight());
                 y += 100;
             }
         } else if (boatOnTheLeftBank == false) {
-            y = 560;
-            gc.drawImage(boatImage, 550, 300);
+            y = 550;
+            gc.drawImage(boatImage, 550, 350);
             for (ICrosser crosser : boatRaiders) {
-                gc.drawImage(crosser.getImage(), y, 330);
+                gc.drawImage(crosser.getImage(), y, 380 - crosser.getImage().getHeight());
                 y += 100;
             }
         }

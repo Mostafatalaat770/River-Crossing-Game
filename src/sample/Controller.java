@@ -55,6 +55,7 @@ public class Controller implements IRiverCrossingController {
         rightBankCrossers.clear();
         boatRaiders.clear();
         boatOnTheLeftBank = true;
+        score = 0;
         history.createHistory(leftBankCrossers, rightBankCrossers, score);
 
     }
@@ -108,9 +109,9 @@ public class Controller implements IRiverCrossingController {
                 move.doMove(leftBankCrossers, boatRaiders);
                 boatOnTheLeftBank = true;
             }
+        score++;
         history.createHistory(leftBankCrossers, rightBankCrossers, score);
 
-        score++;
             //TODO : alert "wrong move"
 
     }
@@ -127,23 +128,25 @@ public class Controller implements IRiverCrossingController {
 
     @Override
     public void undo() {
-            history.undo();
+
+        if (history.undo()) {
             leftBankCrossers = history.getLeftCrossers();
             rightBankCrossers = history.getRightCrossers();
             boatRaiders.clear();
             score = history.getScore();
-        boatOnTheLeftBank = !boatOnTheLeftBank;
-
+            boatOnTheLeftBank = !boatOnTheLeftBank;
+        }
     }
 
     @Override
     public void redo() {
-        history.redo();
+        if (history.redo()) {
             leftBankCrossers = history.getLeftCrossers();
             rightBankCrossers = history.getRightCrossers();
         boatRaiders.clear();
             score = history.getScore();
         boatOnTheLeftBank = !boatOnTheLeftBank;
+        }
     }
 
     @Override

@@ -206,18 +206,20 @@ public class Main extends Application {
             public void handle(ActionEvent actionEvent) {
 
                 //TODO: canMove , isVaild , doMove
-                if (controller.canMove(controller.boatRaiders, controller.boatOnTheLeftBank) && controller.level.isValid(controller.rightBankCrossers, controller.leftBankCrossers, controller.boatRaiders)) {
-                    controller.doMove(controller.boatRaiders, controller.boatOnTheLeftBank);
-                    System.out.println("Boat moved");
-                } else if (!controller.canMove(controller.boatRaiders, controller.boatOnTheLeftBank) || !controller.level.isValid(controller.rightBankCrossers, controller.leftBankCrossers, controller.boatRaiders)) {
-                    if (controller.boatOnTheLeftBank) {
-                        controller.returnThisDude(controller.leftBankCrossers, controller.boatRaiders);
-                    } else {
-                        controller.returnThisDude(controller.rightBankCrossers, controller.boatRaiders);
+                if (controller.boatRaiders.size() != 0) {
+                    if (controller.canMove(controller.boatRaiders, controller.boatOnTheLeftBank) && controller.level.isValid(controller.rightBankCrossers, controller.leftBankCrossers, controller.boatRaiders)) {
+                        controller.doMove(controller.boatRaiders, controller.boatOnTheLeftBank);
+                        System.out.println("Boat moved");
+                    } else if (!controller.canMove(controller.boatRaiders, controller.boatOnTheLeftBank) || !controller.level.isValid(controller.rightBankCrossers, controller.leftBankCrossers, controller.boatRaiders)) {
+                        if (controller.boatOnTheLeftBank) {
+                            controller.returnThisDude(controller.leftBankCrossers, controller.boatRaiders);
+                        } else {
+                            controller.returnThisDude(controller.rightBankCrossers, controller.boatRaiders);
+
+                        }
+                        System.out.println("invalid move ya  ro7 omak");
 
                     }
-                    System.out.println("invalid move ya  ro7 omak");
-
                 }
                 controller.refreshAndDraw(controller.rightBankCrossers, controller.leftBankCrossers, levelGC, controller, background, controller.boatOnTheLeftBank, controller.boat.getImage(), controller.boatRaiders);
 

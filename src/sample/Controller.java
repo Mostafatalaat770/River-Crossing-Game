@@ -235,9 +235,10 @@ public class Controller implements IRiverCrossingController {
     }
 
     public void returnThisDude(List<ICrosser> crossers, List<ICrosser> boatRaiders) {
-        for (int i = 0; i < 2; i++) {
-            crossers.add(boatRaiders.get(i));
-            boatRaiders.remove(i);
+        int n = boatRaiders.size();
+        for (int i = 0; i < n; i++) {
+            crossers.add(boatRaiders.get(0));
+            boatRaiders.remove(0);
         }
     }
 }

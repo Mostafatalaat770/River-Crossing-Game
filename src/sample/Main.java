@@ -39,6 +39,7 @@ public class Main extends Application {
 
         Button level1Button = new Button("Level 1");
         Button level2Button = new Button("Level 2");
+        Button level3Button = new Button("Level 3");
         Button load = new Button("Load last save");
         Button next = new Button("Start game!");
         Button move = new Button("Move");
@@ -63,7 +64,8 @@ public class Main extends Application {
         GridPane StartPane = new GridPane();
         StartPane.add(level1Button, 0, 0);
         StartPane.add(level2Button, 0, 1);
-        StartPane.add(load, 0, 2);
+        StartPane.add(level3Button, 0, 2);
+        StartPane.add(load, 0, 3);
         StartPane.setAlignment(Pos.CENTER);
         StartPane.setVgap(10);
 
@@ -159,6 +161,15 @@ public class Main extends Application {
             public void handle(ActionEvent actionEvent) {
                 controller.level = controller.levelCreator.getLevel(2);
                 //controller.levelID = 2;
+                instructions.setText(controller.getInstructions()[0]);
+                theStage.setScene(instructionScene);
+            }
+        });
+        level3Button.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                controller.level = controller.levelCreator.getLevel(3);
+                //controller.levelID = 3;
                 instructions.setText(controller.getInstructions()[0]);
                 theStage.setScene(instructionScene);
             }

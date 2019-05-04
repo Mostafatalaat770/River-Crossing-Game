@@ -197,7 +197,7 @@ public class Controller implements IRiverCrossingController {
         gc.drawImage(image, 0, 0);
         double y = 150;
         for (ICrosser crosser : leftBankCrossers) {
-            gc.drawImage(crosser.getImage(), 100, y);
+            gc.drawImage(crosser.getImageLeft(), 100, y);
             if (controller.level.isHasLables()) {
                 gc.setFill(Color.WHITE);
                 gc.setLineWidth(2);
@@ -209,7 +209,7 @@ public class Controller implements IRiverCrossingController {
         }
         y = 150;
         for (ICrosser crosser : rightBankCrossers) {
-            gc.drawImage(crosser.getImage(), 900, y);
+            gc.drawImage(crosser.getImageRight(), 900, y);
             if (controller.level.isHasLables()) {
                 gc.setFill(Color.WHITE);
                 gc.setLineWidth(2);
@@ -223,13 +223,13 @@ public class Controller implements IRiverCrossingController {
             y = 350;
             gc.drawImage(boatImage, 350, 350);
             for (ICrosser crosser : boatRaiders) {
-                gc.drawImage(crosser.getImage(), y, 380 - crosser.getImage().getHeight());
+                gc.drawImage(crosser.getImageLeft(), y, 380 - crosser.getImageLeft().getHeight());
                 if (controller.level.isHasLables()) {
                     gc.setFill(Color.WHITE);
                     gc.setLineWidth(2);
                     Font theFont = Font.font("Arial Rounded MT Bold", 15);
                     gc.setFont(theFont);
-                    gc.fillText("weight: " + crosser.getWeight(), y, 380 - crosser.getImage().getHeight());
+                    gc.fillText("weight: " + crosser.getWeight(), y, 380 - crosser.getImageLeft().getHeight());
                 }
                 y += 100;
             }
@@ -237,13 +237,13 @@ public class Controller implements IRiverCrossingController {
             y = 550;
             gc.drawImage(boatImage, 550, 350);
             for (ICrosser crosser : boatRaiders) {
-                gc.drawImage(crosser.getImage(), y, 380 - crosser.getImage().getHeight());
+                gc.drawImage(crosser.getImageRight(), y, 380 - crosser.getImageRight().getHeight());
                 if (controller.level.isHasLables()) {
                     gc.setFill(Color.WHITE);
                     gc.setLineWidth(2);
                     Font theFont = Font.font("Arial Rounded MT Bold", 15);
                     gc.setFont(theFont);
-                    gc.fillText("weight: " + crosser.getWeight(), y, 380 - crosser.getImage().getHeight());
+                    gc.fillText("weight: " + crosser.getWeight(), y, 380 - crosser.getImageRight().getHeight());
                 }
                 y += 100;
             }

@@ -51,6 +51,9 @@ public interface ICrosser {
      */
     void setLabelToBeShown(String label);
 
-    Image getImage();
+    Image getImageLeft();
+
+    Image getImageRight();
+
 }
 

@@ -47,9 +47,17 @@ public class Main extends Application {
         Button save = new Button("Save Game");
         Button instructionsInGame = new Button("Instructions");
         Button reset = new Button("Reset Game");
+        Button emptyBoat = new Button("empty boat");
 
         Text instructions = new Text();
 
+        Button winButton = new Button("back to main menu");
+        Text winText = new Text("YOU WIN!!!");
+        GridPane winPane = new GridPane();
+        winPane.add(winText, 0, 0);
+        winPane.add(winButton, 0, 1);
+        winPane.setAlignment(Pos.CENTER);
+        Scene winScene = new Scene(winPane, 1080, 720);
 
         //panes 3moomn
         GridPane StartPane = new GridPane();
@@ -75,8 +83,11 @@ public class Main extends Application {
         levelButtonsPane.setAlignment(Pos.TOP_CENTER);
 
         GridPane moveBoat = new GridPane();
+        moveBoat.add(emptyBoat, 1, 0);
+        moveBoat.add(winButton, 2, 0);
         moveBoat.add(move, 0, 0);
         moveBoat.setAlignment(Pos.BOTTOM_CENTER);
+        moveBoat.setHgap(5);
 
         GridPane levelMain = new GridPane();
         levelMain.add(moveBoat, 0, 0);
@@ -132,13 +143,7 @@ public class Main extends Application {
         instrucionsInsideTheLevelGridPane.setAlignment(Pos.CENTER);
         Scene instrucionsInsideTheLevel = new Scene(instrucionsInsideTheLevelGridPane, 1080, 720);
 
-        Button winButton = new Button("back to main menu");
-        Text winText = new Text("YOU WIN!!!");
-        GridPane winPane = new GridPane();
-        winPane.add(winText, 0, 0);
-        winPane.add(winButton, 0, 1);
-        winPane.setAlignment(Pos.CENTER);
-        Scene winScene = new Scene(winPane, 1080, 720);
+
 
         level1Button.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -314,6 +319,19 @@ public class Main extends Application {
             public void handle(ActionEvent event) {
 
                 theStage.setScene(theScene);
+            }
+        });
+        emptyBoat.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                if (controller.boatOnTheLeftBank) {
+                    controller.returnThisDude(controller.leftBankCrossers, controller.boatRaiders);
+                } else {
+                    controller.returnThisDude(controller.rightBankCrossers, controller.boatRaiders);
+
+                }
+                controller.refreshAndDraw(controller.rightBankCrossers, controller.leftBankCrossers, levelGC, controller, background, controller.boatOnTheLeftBank, controller.boat.getImage(), controller.boatRaiders);
+
             }
         });
 

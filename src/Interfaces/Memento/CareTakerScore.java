@@ -24,6 +24,10 @@ public class CareTakerScore {
         return stackScore1.lastElement();
     }
 
+    public void clear2ndStack() {
+        stackScore2.clear();
+    }
+
     public boolean canRedo() {
         return stackScore2.size() != 0;
     }

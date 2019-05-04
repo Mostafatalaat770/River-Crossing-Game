@@ -8,13 +8,11 @@ public class Rabbit extends Herbivore {
     }
 
     public Image getImageLeft() {
-        Image image = new Image("Resources/rabbitRight.png", 75, 75, true, true);
-        return  image;
+        return new Image("Resources/rabbitRight.png", 75, 75, true, true);
     }
 
     public Image getImageRight() {
-        Image image = new Image("Resources/Raboota.png", 75, 75, true, true);
-        return image;
+        return new Image("Resources/Raboota.png", 75, 75, true, true);
     }
 
 }

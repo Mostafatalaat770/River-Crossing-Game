@@ -16,12 +16,15 @@ public class CareTakerLeft {
     public MementoLeft undo() {
         stackLeftBank2.push(stackLeftBank1.pop());
         return stackLeftBank1.lastElement();
-
     }
 
     public MementoLeft redo() {
         stackLeftBank1.push(stackLeftBank2.pop());
         return stackLeftBank1.lastElement();
+    }
+
+    public void clear2ndStack() {
+        stackLeftBank2.clear();
     }
 }
 

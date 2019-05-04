@@ -8,12 +8,10 @@ public class Fox extends Carnivore {
     }
 
     public Image getImageLeft() {
-        Image image = new Image("Resources/foxLeft.png", 100, 100, true, true);
-        return  image;
+        return new Image("Resources/foxLeft.png", 100, 100, true, true);
     }
 
     public Image getImageRight() {
-        Image image = new Image("Resources/foxRight.png", 100, 100, true, true);
-        return image;
+        return new Image("Resources/foxRight.png", 100, 100, true, true);
     }
 }

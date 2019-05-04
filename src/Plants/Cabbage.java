@@ -8,13 +8,11 @@ public class Cabbage extends Plant {
     }
 
     public Image getImageLeft() {
-        Image image = new Image("Resources/kabotshy.png", 50, 50, true, true);
-        return  image;
+        return new Image("Resources/kabotshy.png", 50, 50, true, true);
     }
 
     public Image getImageRight() {
-        Image image = new Image("Resources/cabbageRight.jpg", 50, 50, true, true);
-        return image;
+        return new Image("Resources/cabbageRight.jpg", 50, 50, true, true);
     }
 
 }

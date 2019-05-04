@@ -1,0 +1,10 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="River Crossing Game(with Ahmed Swidan, Abdelrahman Zaghlol):jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/River_Crossing_Game_with_Ahmed_Swidan__Abdelrahman_Zaghlol__jar</output-path>
+    <root id="archive" name="River Crossing Game(with Ahmed Swidan, Abdelrahman Zaghlol).jar">
+      <element id="module-output" name="River Crossing Game(with Ahmed Swidan, Abdelrahman Zaghlol)" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/libs/jdom-2.0.6.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/libs/jfoenix-8.0.8.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>

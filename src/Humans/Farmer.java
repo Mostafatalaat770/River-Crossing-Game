@@ -9,13 +9,11 @@ public class Farmer extends Human {
     }
 
     public Image getImageLeft() {
-    Image image = new Image("Resources/farmerLeft.png", 150, 150, true, true);
-        return  image;
-}
+        return new Image("Resources/farmerLeft.png", 150, 150, true, true);
+    }
 
     public Image getImageRight() {
-        Image image = new Image("Resources/farmerRight.png", 150, 150, true, true);
-        return image;
+        return new Image("Resources/farmerRight.png", 150, 150, true, true);
     }
 
 }

@@ -4,6 +4,7 @@ import Animals.Carnivores.Fox;
 import Animals.Carnivores.Lion;
 import Animals.Herbivores.Chicken;
 import Animals.Herbivores.Rabbit;
+import Humans.Child;
 import Humans.Farmer;
 import Interfaces.ICrosser;
 import Plants.Cabbage;
@@ -74,6 +75,9 @@ public class FileManagement {
                 case "level2":
                     levelID = 2;
                     break;
+                case "level3":
+                    levelID = 3;
+                    break;
             }
 
             Element parent = classElement.getChild("leftBank");
@@ -83,6 +87,9 @@ public class FileManagement {
                 switch (child.getName()) {
                     case "farmer":
                         leftBank.add(new Farmer(Double.parseDouble(child.getChild("weight").getText()), Integer.parseInt(child.getChild("eatingRank").getText())));
+                        break;
+                    case "child":
+                        boat.add(new Child(Double.parseDouble(child.getChild("weight").getText()), Integer.parseInt(child.getChild("eatingRank").getText())));
                         break;
                     case "lion":
                         leftBank.add(new Lion(Double.parseDouble(child.getChild("weight").getText()), Integer.parseInt(child.getChild("eatingRank").getText())));
@@ -113,6 +120,9 @@ public class FileManagement {
                     case "farmer":
                         rightBank.add(new Farmer(Double.parseDouble(child.getChild("weight").getText()), Integer.parseInt(child.getChild("eatingRank").getText())));
                         break;
+                    case "child":
+                        boat.add(new Child(Double.parseDouble(child.getChild("weight").getText()), Integer.parseInt(child.getChild("eatingRank").getText())));
+                        break;
                     case "lion":
                         rightBank.add(new Lion(Double.parseDouble(child.getChild("weight").getText()), Integer.parseInt(child.getChild("eatingRank").getText())));
                         break;
@@ -141,6 +151,9 @@ public class FileManagement {
                 switch (child.getName()) {
                     case "farmer":
                         boat.add(new Farmer(Double.parseDouble(child.getChild("weight").getText()), Integer.parseInt(child.getChild("eatingRank").getText())));
+                        break;
+                    case "child":
+                        boat.add(new Child(Double.parseDouble(child.getChild("weight").getText()), Integer.parseInt(child.getChild("eatingRank").getText())));
                         break;
                     case "lion":
                         boat.add(new Lion(Double.parseDouble(child.getChild("weight").getText()), Integer.parseInt(child.getChild("eatingRank").getText())));
@@ -189,6 +202,8 @@ public class FileManagement {
                 Element info;
                 if (crosser instanceof Farmer) {
                     child = new Element("farmer");
+                } else if (crosser instanceof Child) {
+                    child = new Element("child");
                 } else if (crosser instanceof Lion) {
                     child = new Element("lion");
                 } else if (crosser instanceof Fox) {
@@ -222,6 +237,8 @@ public class FileManagement {
                 Element info;
                 if (crosser instanceof Farmer) {
                     child = new Element("farmer");
+                } else if (crosser instanceof Child) {
+                    child = new Element("child");
                 } else if (crosser instanceof Lion) {
                     child = new Element("lion");
                 } else if (crosser instanceof Fox) {
@@ -256,6 +273,8 @@ public class FileManagement {
                 Element info;
                 if (crosser instanceof Farmer) {
                     child = new Element("farmer");
+                } else if (crosser instanceof Child) {
+                    child = new Element("child");
                 } else if (crosser instanceof Lion) {
                     child = new Element("lion");
                 } else if (crosser instanceof Fox) {

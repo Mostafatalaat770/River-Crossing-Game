@@ -23,4 +23,8 @@ public class CareTakerRight {
         stackRightBank1.push(stackRightBank2.pop());
         return stackRightBank1.lastElement();
     }
+
+    public void clear2ndStack() {
+        stackRightBank2.clear();
+    }
 }

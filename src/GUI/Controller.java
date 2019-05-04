@@ -1,18 +1,25 @@
-package sample;
+package GUI;
 
 import Boat.Boat;
 import Files.FileManagement;
+import Interfaces.Command.Command;
+import Interfaces.Command.DisableButton;
+import Interfaces.Command.EnableButton;
+import Interfaces.Command.Invoker;
 import Interfaces.Factory.LevelCreator;
 import Interfaces.ICrosser;
 import Interfaces.ICrossingStrategy;
 import Interfaces.IRiverCrossingController;
 import Interfaces.Memento.History;
 import Interfaces.Strategy.Move;
+import Interfaces.Strategy.MoveLeftToRight;
 import Interfaces.Strategy.MoveRightToLeft;
 import Levels.Level;
 import Levels.Level1;
 import Levels.Level2;
+import Levels.Level3;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -23,15 +30,16 @@ import java.util.List;
 public class Controller implements IRiverCrossingController {
     public LevelCreator levelCreator = new LevelCreator();
     public Level level;
-    //public int levelID;
 
     public Boat boat = Boat.getInstance();
     public List<ICrosser> leftBankCrossers = new ArrayList<>();
-    public List<ICrosser> boatRaiders = new ArrayList<>(); //boat.getRaiders();
+    public List<ICrosser> boatRaiders = new ArrayList<>();
     public List<ICrosser> rightBankCrossers = new ArrayList<>();
     public boolean boatOnTheLeftBank;
     public int score = 0;
     public int index;
+
+    Invoker invoker = new Invoker();
 
 
     public History history = new History();
@@ -43,7 +51,9 @@ public class Controller implements IRiverCrossingController {
         leftBankCrossers = level.getInitialCrossers();
         rightBankCrossers = new ArrayList<>();
         boatRaiders = new ArrayList<>();
+        score = 0;
         boatOnTheLeftBank = true;
+        history.clear();
         history.createHistory(leftBankCrossers, rightBankCrossers, score);
 
     }
@@ -99,20 +109,18 @@ public class Controller implements IRiverCrossingController {
     @Override
     public void doMove(List<ICrosser> crossers, boolean fromLeftToRightBank) {
 
-            Move move;
-            if (fromLeftToRightBank) {
-                move = new Move(new MoveRightToLeft());
-                move.doMove(rightBankCrossers, boatRaiders);
-                boatOnTheLeftBank = false;
-            } else {
-                move = new Move(new MoveRightToLeft());
-                move.doMove(leftBankCrossers, boatRaiders);
-                boatOnTheLeftBank = true;
-            }
+        Move move;
+        if (fromLeftToRightBank) {
+            move = new Move(new MoveLeftToRight());
+            move.doMove(rightBankCrossers, boatRaiders);
+            boatOnTheLeftBank = false;
+        } else {
+            move = new Move(new MoveRightToLeft());
+            move.doMove(leftBankCrossers, boatRaiders);
+            boatOnTheLeftBank = true;
+        }
         score++;
         history.createHistory(leftBankCrossers, rightBankCrossers, score);
-
-            //TODO : alert "wrong move"
 
     }
 
@@ -143,9 +151,9 @@ public class Controller implements IRiverCrossingController {
         if (history.redo()) {
             leftBankCrossers = history.getLeftCrossers();
             rightBankCrossers = history.getRightCrossers();
-        boatRaiders.clear();
+            boatRaiders.clear();
             score = history.getScore();
-        boatOnTheLeftBank = !boatOnTheLeftBank;
+            boatOnTheLeftBank = !boatOnTheLeftBank;
         }
     }
 
@@ -156,12 +164,17 @@ public class Controller implements IRiverCrossingController {
             levelID = 1;
         } else if (level instanceof Level2) {
             levelID = 2;
+        } else if (level instanceof Level3) {
+            levelID = 3;
         }
+
+
         fileManagement.save(rightBankCrossers, leftBankCrossers, boatRaiders, boatOnTheLeftBank, score, levelID);
     }
 
     @Override
     public void loadGame() {
+        fileManagement = new FileManagement();
         fileManagement.load();
         level = levelCreator.getLevel(fileManagement.getLevelID());
         leftBankCrossers = fileManagement.getLeftBank();
@@ -219,7 +232,7 @@ public class Controller implements IRiverCrossingController {
             }
             y += 500 / controller.level.getInitialCrossers().size();
         }
-        if (boatOnTheLeftBank == true) {
+        if (boatOnTheLeftBank) {
             y = 350;
             gc.drawImage(boatImage, 350, 350);
             for (ICrosser crosser : boatRaiders) {
@@ -233,7 +246,7 @@ public class Controller implements IRiverCrossingController {
                 }
                 y += 100;
             }
-        } else if (boatOnTheLeftBank == false) {
+        } else if (!boatOnTheLeftBank) {
             y = 550;
             gc.drawImage(boatImage, 550, 350);
             for (ICrosser crosser : boatRaiders) {
@@ -267,6 +280,18 @@ public class Controller implements IRiverCrossingController {
         for (int i = 0; i < n; i++) {
             crossers.add(boatRaiders.get(0));
             boatRaiders.remove(0);
+        }
+    }
+
+    public void executeButton(Button button, boolean enable) {
+        if (enable) {
+            Command enableButton = new EnableButton(button);
+            invoker.setCommand(enableButton);
+            invoker.pressButton();
+        } else {
+            Command disableButton = new DisableButton(button);
+            invoker.setCommand(disableButton);
+            invoker.pressButton();
         }
     }
 

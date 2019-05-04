@@ -29,6 +29,9 @@ public class History {
         careTakerLeft.add(originatorLeft.saveStateToMemento());
         careTakerRight.add(originatorRight.saveStateToMemento());
         careTakerScore.add(originatorScore.saveStateToMemento());
+        careTakerLeft.clear2ndStack();
+        careTakerRight.clear2ndStack();
+        careTakerScore.clear2ndStack();
     }
 
     public boolean undo() {
@@ -68,6 +71,7 @@ public class History {
         originatorScore = new OriginatorScore();
         careTakerScore = new CareTakerScore();
     }
+
     public boolean canRedo() {
         return careTakerScore.canRedo();
     }

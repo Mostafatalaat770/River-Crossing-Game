@@ -132,6 +132,14 @@ public class Main extends Application {
         instrucionsInsideTheLevelGridPane.setAlignment(Pos.CENTER);
         Scene instrucionsInsideTheLevel = new Scene(instrucionsInsideTheLevelGridPane, 1080, 720);
 
+        Button winButton = new Button("back to main menu");
+        Text winText = new Text("YOU WIN!!!");
+        GridPane winPane = new GridPane();
+        winPane.add(winText, 0, 0);
+        winPane.add(winButton, 0, 1);
+        winPane.setAlignment(Pos.CENTER);
+        Scene winScene = new Scene(winPane, 1080, 720);
+
         level1Button.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
@@ -212,7 +220,9 @@ public class Main extends Application {
                 if (controller.boatRaiders.size() != 0) {
                     if (controller.canMove(controller.boatRaiders, controller.boatOnTheLeftBank) && controller.level.isValid(controller.rightBankCrossers, controller.leftBankCrossers, controller.boatRaiders)) {
                         controller.doMove(controller.boatRaiders, controller.boatOnTheLeftBank);
-
+                        if (controller.didIWin(controller.rightBankCrossers, controller)) {
+                            theStage.setScene(winScene);
+                        }
                         controller.refreshAndDraw(controller.rightBankCrossers, controller.leftBankCrossers, levelGC, controller, background, controller.boatOnTheLeftBank, controller.boat.getImage(), controller.boatRaiders);
                     } else if (!controller.canMove(controller.boatRaiders, controller.boatOnTheLeftBank) || !controller.level.isValid(controller.rightBankCrossers, controller.leftBankCrossers, controller.boatRaiders)) {
                         if (controller.boatOnTheLeftBank) {
@@ -297,6 +307,13 @@ public class Main extends Application {
             public void handle(ActionEvent event) {
 
                 theStage.setScene(levelScene);
+            }
+        });
+        winButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+
+                theStage.setScene(theScene);
             }
         });
 

@@ -269,6 +269,10 @@ public class Controller implements IRiverCrossingController {
             boatRaiders.remove(0);
         }
     }
+
+    public boolean didIWin(List<ICrosser> crossers, Controller controller) {
+        return controller.level.getInitialCrossers().size() == crossers.size();
+    }
 }
 
 

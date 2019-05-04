@@ -1,5 +1,4 @@
 package sample;
-
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -25,6 +24,9 @@ public class Main extends Application {
     }
 
     public void start(Stage theStage) {
+        Canvas instructionsCanvas = new Canvas(1080, 720);
+        GraphicsContext instructionsGC = instructionsCanvas.getGraphicsContext2D();
+
         Controller controller = new Controller();
 
         theStage.setTitle("RiverCrossingGame");
@@ -45,8 +47,6 @@ public class Main extends Application {
         Button save = new Button("Save Game");
         Button instructionsInGame = new Button("Instructions");
         Button reset = new Button("Reset Game");
-
-
 
         Text instructions = new Text();
 
@@ -124,6 +124,14 @@ public class Main extends Application {
 
         Scene levelScene = new Scene(levelPane);
 
+        Text instrucionsInsideTheLevelText = new Text();
+        Button instrucionsInsideTheLevelButton = new Button("back to game");
+        GridPane instrucionsInsideTheLevelGridPane = new GridPane();
+        instrucionsInsideTheLevelGridPane.add(instrucionsInsideTheLevelText, 0, 0);
+        instrucionsInsideTheLevelGridPane.add(instrucionsInsideTheLevelButton, 0, 1);
+        instrucionsInsideTheLevelGridPane.setAlignment(Pos.CENTER);
+        Scene instrucionsInsideTheLevel = new Scene(instrucionsInsideTheLevelGridPane, 1080, 720);
+
         level1Button.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
@@ -167,15 +175,11 @@ public class Main extends Application {
         levelScene.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-
-//                System.out.println(event.getSceneX());
-//                System.out.println(event.getSceneY());
                 controller.index = controller.detectHitBox(controller.level.getInitialCrossers(), event.getSceneX(), event.getSceneY());
                 if (controller.index != -1) {
                     //go to right bank crossers======================================================
                     if (controller.index >= controller.level.getInitialCrossers().size()) {
                         controller.index %= controller.level.getInitialCrossers().size();
-                        System.out.println(controller.index);
                         if (controller.index < controller.rightBankCrossers.size()) {
                             if (controller.boatOnTheLeftBank == false) {
                                 controller.moveThisDude(controller.rightBankCrossers, controller.boatRaiders, controller.index);
@@ -187,7 +191,6 @@ public class Main extends Application {
 
                     //go to left bank crossers=======================================================
                     else if (controller.index < controller.level.getInitialCrossers().size()) {
-                        System.out.println(controller.index);
                         if (controller.index < controller.leftBankCrossers.size()) {
                             if (controller.boatOnTheLeftBank == true) {
                                 controller.moveThisDude(controller.leftBankCrossers, controller.boatRaiders, controller.index);
@@ -209,6 +212,7 @@ public class Main extends Application {
                 if (controller.boatRaiders.size() != 0) {
                     if (controller.canMove(controller.boatRaiders, controller.boatOnTheLeftBank) && controller.level.isValid(controller.rightBankCrossers, controller.leftBankCrossers, controller.boatRaiders)) {
                         controller.doMove(controller.boatRaiders, controller.boatOnTheLeftBank);
+
                         controller.refreshAndDraw(controller.rightBankCrossers, controller.leftBankCrossers, levelGC, controller, background, controller.boatOnTheLeftBank, controller.boat.getImage(), controller.boatRaiders);
                     } else if (!controller.canMove(controller.boatRaiders, controller.boatOnTheLeftBank) || !controller.level.isValid(controller.rightBankCrossers, controller.leftBankCrossers, controller.boatRaiders)) {
                         if (controller.boatOnTheLeftBank) {
@@ -280,6 +284,22 @@ public class Main extends Application {
                 controller.refreshAndDraw(controller.rightBankCrossers, controller.leftBankCrossers, levelGC, controller, background, controller.boatOnTheLeftBank, controller.boat.getImage(), controller.boatRaiders);
             }
         });
+
+        instructionsInGame.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                instrucionsInsideTheLevelText.setText(controller.getInstructions()[0]);
+                theStage.setScene(instrucionsInsideTheLevel);
+            }
+        });
+        instrucionsInsideTheLevelButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+
+                theStage.setScene(levelScene);
+            }
+        });
+
 
         theStage.show();
     }

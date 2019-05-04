@@ -11,8 +11,6 @@ import java.util.List;
  * @author Mostafa Talaat
  */
 public class Level2 extends Level {
-
-
     @Override
     public boolean isValid(List<ICrosser> rightBankCrossers, List<ICrosser> leftBankCrossers, List<ICrosser> boatRiders) {
 
@@ -36,9 +34,9 @@ public class Level2 extends Level {
 
     @Override
     public String[] getInstructions() {
-        super.setHasLables(true);
+        setHasLables(true);
         String[] instructions = new String[1];
-        instructions[0] = "Four farmers and their animal need to cross a river in a small boat. The weights of the farmers are 90 kg,\n80 kg,60 kg and 40 kg respectively, and the weight of the animal is 20 kg.\n" +
+        instructions[0] = "Four farmers and their animal need to cross a river in a small boat\n. The weights of the farmers are 90 kg, 80 kg,60 kg and 40 kg respectively, and the weight of the animal is 20 kg.\n" +
                 "How can they all get to the other side with their animal?\n" +
                 "Rules:\n" +
                 "1- The boat cannot bear a load heavier than 100 kg.\n" +

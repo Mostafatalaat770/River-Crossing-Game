@@ -18,6 +18,7 @@ public class MoveLeftToRight implements Strategy {
             ICrosser crosser = (ICrosser) boatIter.next();
             crossers.add(crosser);
             boatRiders.remove(crosser);
+            boatIter = boatRiders.iterator();
         }
     }
 

@@ -13,6 +13,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Level1 extends Level {
+
+
     @Override
     public boolean isValid(List<ICrosser> rightBankCrossers, List<ICrosser> leftBankCrossers, List<ICrosser> boatRiders) {
         int herbivoreCount = 0;
@@ -57,7 +59,7 @@ public class Level1 extends Level {
 
     @Override
     public String[] getInstructions() {
-
+        super.setHasLables(false);
         String[] instructions = new String[1];
         instructions[0] = "Welcome to the first level, you have 1 farmer, 1 rabbit, 1 fox and 1 cabbage.\n" +
                 "How can the farmer get across the river with all the 2 animals and the plant without any losses?\n" +
@@ -67,5 +69,7 @@ public class Level1 extends Level {
                 "3- If a rabbit and a cabbage are on the same bank alone, the cabbage will be eaten.\n";
 
         return instructions;
+
     }
+
 }

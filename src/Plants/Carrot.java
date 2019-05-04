@@ -8,7 +8,12 @@ public class Carrot extends Plant {
     }
 
     @Override
-    public Image getImage() {
+    public Image getImageLeft() {
+        return null;
+    }
+
+    @Override
+    public Image getImageRight() {
         return null;
     }
 }

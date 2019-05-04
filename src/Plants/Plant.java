@@ -41,5 +41,7 @@ public abstract class Plant implements ICrosser {
 
     }
 
-    public abstract Image getImage();
+    public abstract Image getImageLeft();
+
+    public abstract Image getImageRight();
 }

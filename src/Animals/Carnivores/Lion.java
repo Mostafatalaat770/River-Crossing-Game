@@ -9,7 +9,12 @@ public class Lion extends Carnivore {
     }
 
     @Override
-    public Image getImage() {
+    public Image getImageLeft() {
+        return null;
+    }
+
+    @Override
+    public Image getImageRight() {
         return null;
     }
 }

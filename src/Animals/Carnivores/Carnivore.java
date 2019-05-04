@@ -9,5 +9,7 @@ public abstract class Carnivore extends Animal {
         super(weight, eatingRank);
     }
 
-    public abstract Image getImage();
+    public abstract Image getImageLeft();
+
+    public abstract Image getImageRight();
 }

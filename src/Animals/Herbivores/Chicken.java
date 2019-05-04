@@ -8,7 +8,13 @@ public class Chicken extends Herbivore {
     }
 
     @Override
-    public Image getImage() {
+    public Image getImageLeft() {
         return null;
     }
+
+    @Override
+    public Image getImageRight() {
+        return null;
+    }
+
 }

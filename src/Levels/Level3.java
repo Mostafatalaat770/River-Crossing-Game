@@ -11,11 +11,14 @@ public class Level3 extends Level {
     @Override
     public boolean isValid(List<ICrosser> rightBankCrossers, List<ICrosser> leftBankCrossers, List<ICrosser> boatRiders) {
         int farmerCount = 0;
+        int childCount = 0;
         for (int i = 0; i < boatRiders.size(); i++) {
             if (boatRiders.get(i) instanceof Farmer) {
                 farmerCount++;
+            } else {
+                childCount++;
             }
-            if (farmerCount > 1 && boatRiders.size() > 1)
+            if (farmerCount == 1 && boatRiders.size() != 1)
                 return false;
 
         }

@@ -9,11 +9,11 @@ public class Child extends Human {
     }
 
     public Image getImageLeft() {
-        return new Image("Resources/kabotshy.png", 50, 50, true, true);
+        return new Image("Resources/childLeft.png", 75, 75, true, true);
     }
 
     public Image getImageRight() {
-        return new Image("Resources/cabbageRight.jpg", 50, 50, true, true);
+        return new Image("Resources/childRight.png", 75, 75, true, true);
 
     }
 }

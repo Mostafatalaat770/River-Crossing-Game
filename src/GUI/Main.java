@@ -51,6 +51,7 @@ public class Main extends Application {
         Text instructions = new Text();
 
         Button winButton = new Button("Main Menu");
+        Button mainMenu = new Button("Main Menu");
         Text winText = new Text("YOU WON!!!");
         GridPane winPane = new GridPane();
         winPane.add(winText, 0, 0);
@@ -86,7 +87,7 @@ public class Main extends Application {
 
         GridPane moveBoat = new GridPane();
         moveBoat.add(emptyBoat, 1, 0);
-        moveBoat.add(winButton, 2, 0);
+        moveBoat.add(mainMenu, 2, 0);
         moveBoat.add(move, 0, 0);
         moveBoat.setAlignment(Pos.BOTTOM_CENTER);
         moveBoat.setHgap(5);
@@ -311,7 +312,7 @@ public class Main extends Application {
             controller.refreshAndDraw(controller.rightBankCrossers, controller.leftBankCrossers, levelGC, controller, background, controller.boatOnTheLeftBank, controller.boat.getImage(), controller.boatRaiders);
 
         });
-
+        mainMenu.setOnAction(event -> theStage.setScene(theScene));
 
         theStage.show();
     }

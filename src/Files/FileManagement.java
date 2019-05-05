@@ -89,7 +89,7 @@ public class FileManagement {
                         leftBank.add(new Farmer(Double.parseDouble(child.getChild("weight").getText()), Integer.parseInt(child.getChild("eatingRank").getText())));
                         break;
                     case "child":
-                        boat.add(new Child(Double.parseDouble(child.getChild("weight").getText()), Integer.parseInt(child.getChild("eatingRank").getText())));
+                        leftBank.add(new Child(Double.parseDouble(child.getChild("weight").getText()), Integer.parseInt(child.getChild("eatingRank").getText())));
                         break;
                     case "lion":
                         leftBank.add(new Lion(Double.parseDouble(child.getChild("weight").getText()), Integer.parseInt(child.getChild("eatingRank").getText())));
@@ -121,7 +121,7 @@ public class FileManagement {
                         rightBank.add(new Farmer(Double.parseDouble(child.getChild("weight").getText()), Integer.parseInt(child.getChild("eatingRank").getText())));
                         break;
                     case "child":
-                        boat.add(new Child(Double.parseDouble(child.getChild("weight").getText()), Integer.parseInt(child.getChild("eatingRank").getText())));
+                        leftBank.add(new Child(Double.parseDouble(child.getChild("weight").getText()), Integer.parseInt(child.getChild("eatingRank").getText())));
                         break;
                     case "lion":
                         rightBank.add(new Lion(Double.parseDouble(child.getChild("weight").getText()), Integer.parseInt(child.getChild("eatingRank").getText())));

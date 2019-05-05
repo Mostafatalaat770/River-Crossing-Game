@@ -28,6 +28,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Controller implements IRiverCrossingController {
+
     public LevelCreator levelCreator = new LevelCreator();
     public Level level;
 
@@ -175,6 +176,7 @@ public class Controller implements IRiverCrossingController {
     @Override
     public void loadGame() {
         fileManagement = new FileManagement();
+        history.clear();
         fileManagement.load();
         level = levelCreator.getLevel(fileManagement.getLevelID());
         leftBankCrossers = fileManagement.getLeftBank();

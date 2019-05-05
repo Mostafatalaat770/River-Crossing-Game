@@ -1,8 +1,6 @@
 package GUI;
 
 import javafx.application.Application;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
@@ -156,14 +154,10 @@ public class Main extends Application {
             instructions.setText(controller.getInstructions()[0]);
             theStage.setScene(instructionScene);
         });
-        level3Button.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent actionEvent) {
-                controller.level = controller.levelCreator.getLevel(3);
-                //controller.levelID = 3;
-                instructions.setText(controller.getInstructions()[0]);
-                theStage.setScene(instructionScene);
-            }
+        level3Button.setOnAction(actionEvent -> {
+            controller.level = controller.levelCreator.getLevel(3);
+            instructions.setText(controller.getInstructions()[0]);
+            theStage.setScene(instructionScene);
         });
         next.setOnAction(actionEvent -> {
             theStage.setScene(levelScene);
@@ -176,6 +170,8 @@ public class Main extends Application {
         });
         load.setOnAction(event -> {
             controller.loadGame();
+            controller.executeButton(redo, false);
+            controller.executeButton(undo, false);
             theStage.setScene(levelScene);
             controller.refreshAndDraw(controller.rightBankCrossers, controller.leftBankCrossers, levelGC, controller, background, controller.boatOnTheLeftBank, controller.boat.getImage(), controller.boatRaiders);
 
